@@ -1,3 +1,5 @@
-# -*- coding: utf-8 -*-
-
-from . import charges, roomtypes, rooms
+from . import hotelcompany
+from . import charges
+from . import rooms
+from . import guests
+from . import guestregistration
