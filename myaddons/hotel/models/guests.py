@@ -4,10 +4,12 @@
 
 from odoo import models, fields, api
 
+from .common import company_id_field
+
 class guests(models.Model):
     _name = 'hotel.guests'
     _description = 'hotel guests master list'
-    _order ='lastname,firstname,middlename'
+    _order = 'lastname,firstname,middlename'
 
     lastname = fields.Char("Last Name")
     firstname = fields.Char("First Name")    
@@ -25,20 +27,14 @@ class guests(models.Model):
     gender = fields.Selection([('FEMALE','Female'),('MALE','Male')],string="Gender")
     birthdate = fields.Date("Birthdate")
     photo = fields.Image("Guest Photo") 
-    
-    company_id = fields.Many2one(
-        'res.company',
-        string="Company",
-        required=True,
-        index=True,
-        default=lambda self: self.env.company,  # auto-assign current user's company
-    )
+
+    company_id = company_id_field()
     
     name = fields.Char(string='Guest Name', compute='_compute_name')
-    @api.depends('lastname','firstname','middlename')
+    @api.depends('lastname', 'firstname', 'middlename')
     def _compute_name(self):
         for rec in self:
-              rec.name=f"{rec.lastname or ''}, {rec.firstname or ''} {rec.middlename or ''}".strip()
+            rec.name = f"{rec.lastname or ''}, {rec.firstname or ''} {rec.middlename or ''}".strip()
 
     age = fields.Integer(string='Age', compute='_compute_age')
     @api.depends('birthdate')
@@ -58,4 +54,4 @@ class guests(models.Model):
                 )
             else:
                 rec.age = 0
-              
+                    )

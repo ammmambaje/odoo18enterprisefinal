@@ -6,6 +6,8 @@ import pytz
 from odoo import models, fields, api
 from odoo.exceptions import ValidationError
 
+from .common import company_id_field
+
 
 class guestregistration(models.Model):
     _name = 'hotel.guestregistration'
@@ -40,13 +42,7 @@ class guestregistration(models.Model):
 
     details=fields.Text("Details")  
 
-    company_id = fields.Many2one(
-        'res.company',
-        string="Company",
-        required=True,
-        index=True,
-        default=lambda self: self.env.company,  # auto-assign current user's company
-    )
+    company_id = company_id_field()
 
     name = fields.Char(string='Guest Registration', compute='_compute_name', store=False)
 
