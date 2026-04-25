@@ -1,10 +1,13 @@
 # -*- coding: utf-8 -*-
 
-from odoo import fields
+from odoo import fields, models
 
 
-def company_id_field():
-    return fields.Many2one(
+class HotelCompanyMixin(models.AbstractModel):
+    _name = 'hotel.company.mixin'
+    _description = 'Hotel company mixin'
+
+    company_id = fields.Many2one(
         'res.company',
         string='Company',
         required=True,

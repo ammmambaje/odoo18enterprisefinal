@@ -4,10 +4,9 @@
 
 from odoo import models, fields, api
 
-from .common import company_id_field
-
 class guests(models.Model):
     _name = 'hotel.guests'
+    _inherit = ['hotel.company.mixin']
     _description = 'hotel guests master list'
     _order = 'lastname,firstname,middlename'
 
@@ -27,8 +26,6 @@ class guests(models.Model):
     gender = fields.Selection([('FEMALE','Female'),('MALE','Male')],string="Gender")
     birthdate = fields.Date("Birthdate")
     photo = fields.Image("Guest Photo") 
-
-    company_id = company_id_field()
     
     name = fields.Char(string='Guest Name', compute='_compute_name')
     @api.depends('lastname', 'firstname', 'middlename')

@@ -2,11 +2,10 @@
 
 from odoo import models, fields
 
-from .common import company_id_field
-
 
 class roomtypes(models.Model):
     _name = 'hotel.roomtypes'
+    _inherit = ['hotel.company.mixin']
     _description = 'hotel roomtypes master list'
     _order = 'name'
 
@@ -18,5 +17,3 @@ class roomtypes(models.Model):
 
     room_ids = fields.One2many('hotel.rooms', 'roomtype_id', string='Rooms')
     dailycharges_ids = fields.One2many('hotel.dailycharges', 'roomtype_id', string='Daily Charges')
-
-    company_id = company_id_field()

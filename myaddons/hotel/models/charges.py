@@ -2,11 +2,10 @@
 
 from odoo import models, fields
 
-from .common import company_id_field
-
 
 class charges(models.Model):
     _name = 'hotel.charges'
+    _inherit = ['hotel.company.mixin']
     _description = 'hotel charges/accounts master list'
     _order = 'name'
 
@@ -16,5 +15,3 @@ class charges(models.Model):
     name = fields.Char("Account Name")
     description = fields.Char("Account Description")
     paymentaccount = fields.Boolean("Payment Account", default=False)
-
-    company_id = company_id_field()

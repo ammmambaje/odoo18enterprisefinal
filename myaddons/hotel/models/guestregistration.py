@@ -6,11 +6,10 @@ import pytz
 from odoo import models, fields, api
 from odoo.exceptions import ValidationError
 
-from .common import company_id_field
-
 
 class guestregistration(models.Model):
     _name = 'hotel.guestregistration'
+    _inherit = ['hotel.company.mixin']
     _description = 'hotel guest registration list'
     
     grc_id = fields.Integer(string="GRC #")
@@ -41,8 +40,6 @@ class guestregistration(models.Model):
     actualpax = fields.Integer("Actual PAX")
 
     details=fields.Text("Details")  
-
-    company_id = company_id_field()
 
     name = fields.Char(string='Guest Registration', compute='_compute_name', store=False)
 

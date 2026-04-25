@@ -2,11 +2,10 @@
 
 from odoo import models, fields
 
-from .common import company_id_field
-
 
 class dailycharges(models.Model):
     _name = 'hotel.dailycharges'
+    _inherit = ['hotel.company.mixin']
     _description = 'hotel roomtype daily charges list'
 
     dailyrate = fields.Float('Daily Rate', digits=(10, 2))
@@ -15,5 +14,3 @@ class dailycharges(models.Model):
 
     charge_id = fields.Many2one('hotel.charges', string='Charge Title')
     roomtype_id = fields.Many2one('hotel.roomtypes', string='Roomtype')
-
-    company_id = company_id_field()
